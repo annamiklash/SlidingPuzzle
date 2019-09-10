@@ -6,7 +6,6 @@ import javafx.scene.layout.GridPane;
 import lombok.Getter;
 import mi.mi.miklash.slidingpuzzle.controller.GameController;
 import mi.mi.miklash.slidingpuzzle.generator.GridGenerator;
-import mi.mi.miklash.slidingpuzzle.generator.NodeGenerator;
 import mi.mi.miklash.slidingpuzzle.model.Node;
 
 import java.util.List;
@@ -16,16 +15,18 @@ public class GameBoard {
 
     private final GridPane gridPane;
     private final GameController gameController;
-    private final List<Node> nodeList;
+
 
     public GameBoard() {
         this.gridPane = new GridPane();
         this.gameController = new GameController(this);
-        this.nodeList = NodeGenerator.generateShuffledNodeList(gameController);
+
+        initGridPane();
+
     }
 
 
-    public void initGridPane() {
+    private void initGridPane() {
         gridPane.setPrefSize(800, 800);
         gridPane.setAlignment(Pos.CENTER);
 
@@ -35,7 +36,7 @@ public class GameBoard {
 
     }
 
-    public void initializeNodesLocation() {
+    public void initializeNodesLocation(List<Node> nodeList) {
         GridGenerator.generateGrid(gridPane, nodeList,  4);
     }
 

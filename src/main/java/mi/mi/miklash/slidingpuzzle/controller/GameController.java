@@ -11,27 +11,17 @@ import java.util.Map;
 
 import static mi.mi.miklash.slidingpuzzle.model.SelectionEnum.*;
 
-
 public class GameController {
 
-    private final GameBoard gameBoard;
-    private final MovesCounterController movesCounterController;
     private List<Node> nodeList;
+    private GameBoard gameBoard;
 
     public GameController(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
-        this.movesCounterController = new MovesCounterController();
 
         initGame();
 
     }
-
-    private void initGame() {
-        nodeList = NodeGenerator.generateShuffledNodeList(this);
-        gameBoard.initGridPane();
-        gameBoard.initializeNodesLocation();
-    }
-
 
     public void handleSelection(Node selectedNode) {
 
@@ -51,9 +41,11 @@ public class GameController {
         }
 
         selectedNode.setSelected();
-        movesCounterController.incrementMovesCounter();
+    }
 
-
+    private void initGame() {
+        nodeList = NodeGenerator.generateShuffledNodeList(this);
+        gameBoard.initializeNodesLocation(nodeList);
     }
 
     private void unselectNodes() {
@@ -62,7 +54,6 @@ public class GameController {
                 node.setNotSelected();
             }
         }
-
     }
 
     private void findPossibleNodeToSwitch(Node actualNode) {
@@ -82,8 +73,6 @@ public class GameController {
 
 
                 }
-
-
             }
         }
     }
