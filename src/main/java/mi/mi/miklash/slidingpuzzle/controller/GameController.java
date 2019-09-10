@@ -16,6 +16,7 @@ public class GameController {
     private List<Node> nodeList;
     private GameBoard gameBoard;
 
+
     public GameController(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
 
@@ -52,30 +53,45 @@ public class GameController {
         for (Node node : nodeList) {
             if (node.isSelected()) {
                 node.setNotSelected();
+                System.out.println("unselected node " + node.getNodeNumber());
             }
         }
     }
 
     private void findPossibleNodeToSwitch(Node actualNode) {
         Map<Integer, List<Node>> positionMap = PositionMapInitializer.init4x4PositionMap(nodeList);
-        List<Node> possibleNodesToSwitch = PositionMapInitializer.getPossibleNodesToSwitch(positionMap, actualNode);
+
 
         int actualNodeNumber = actualNode.getNodeNumber();
 
-        for (Node node : nodeList) {
-            if (node.isSelected()) {
-                int selectedNodeNumber = node.getNodeNumber();
-                if (actualNodeNumber != selectedNodeNumber) {
+        for (Node firstNodeSelected : nodeList) {
+            if (firstNodeSelected.isSelected()) { //ищет какой был кликнут первым
+                int firstSelectedNodeNumber = firstNodeSelected.getNodeNumber();
+                if (actualNodeNumber != firstSelectedNodeNumber) {
                     /*
                    check actualNodeNumber as a key
-                   and should check node
+                   and should check firstNodeSelected
                      */
+                    List<Node> possibleNodesToSwitch = PositionMapInitializer.getPossibleNodesToSwitch(positionMap, firstNodeSelected);
+
+                    for (Node possibleNodeToSwitchFromList : possibleNodesToSwitch) {
+                        if ((possibleNodeToSwitchFromList.getNodeNumber()) == actualNodeNumber){
+
+                            firstNodeSelected.swapNodes(actualNode);
+
+
+                            break;
+
+                        }
+                    }
 
 
                 }
             }
         }
     }
+
+
 
 
     private SelectionEnum processSelectedNodes(Node selectedNode) {

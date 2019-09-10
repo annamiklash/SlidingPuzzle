@@ -19,6 +19,7 @@ public class GameBoard {
 
     public GameBoard() {
         this.gridPane = new GridPane();
+
         this.gameController = new GameController(this);
 
         initGridPane();

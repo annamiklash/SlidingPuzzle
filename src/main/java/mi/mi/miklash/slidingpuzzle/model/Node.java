@@ -3,8 +3,10 @@ package mi.mi.miklash.slidingpuzzle.model;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Node extends ImageView {
 
     private int nodeNumber;
@@ -37,24 +39,22 @@ public class Node extends ImageView {
     }
 
 
-    public void switchNodes(Node that) {
-//
-//        int temp = 0;
-//
-//        temp = this.nodeNumber;
-//        this.nodeNumber = that.nodeNumber;
-//        that.nodeNumber = temp;
-//
-//
-//        Image thisImage = this.getImage();
-//        Image tempImage = null;
-//        Image thatImage = that.getImage();
-//
-//        tempImage = thisImage;
-//        thisImage = thatImage;
-//        thatImage = tempImage;
+    public void swapNodes(Node secondSelected) {
+
+        Image temp = this.getImage();
+        this.setImage(secondSelected.getImage());
+        secondSelected.setImage(temp);
+
+        int tempNumber = this.getNodeNumber();
+        this.setNodeNumber(secondSelected.getNodeNumber());
+        secondSelected.setNodeNumber(tempNumber);
+
+        System.out.println("swap possible");
 
 
     }
+
+
+
 }
 
