@@ -1,10 +1,14 @@
 package mi.mi.miklash.slidingpuzzle;
 
+import mi.mi.miklash.slidingpuzzle.util.ImageUtil;
+
 import java.util.Optional;
 
 public class Test {
 
     public static void main(String[] args) {
+
+        ImageUtil.cutImage(4);
 
         Optional<String> optionalString = getValue();
 

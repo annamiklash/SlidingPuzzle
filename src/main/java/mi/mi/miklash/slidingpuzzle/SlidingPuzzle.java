@@ -14,5 +14,6 @@ public class SlidingPuzzle extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         GameInitializer.initGamePage(primaryStage);
+
     }
 }

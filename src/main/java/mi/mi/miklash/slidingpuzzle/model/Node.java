@@ -45,9 +45,9 @@ public class Node extends ImageView {
         this.setImage(secondSelected.getImage());
         secondSelected.setImage(temp);
 
-        int tempNumber = this.getNodeNumber();
-        this.setNodeNumber(secondSelected.getNodeNumber());
-        secondSelected.setNodeNumber(tempNumber);
+//        int tempNumber = this.getNodeNumber();
+//        this.setNodeNumber(secondSelected.getNodeNumber());
+//        secondSelected.setNodeNumber(tempNumber);
 
         System.out.println("swap possible");
 

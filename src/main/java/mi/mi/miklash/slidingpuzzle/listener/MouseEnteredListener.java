@@ -7,9 +7,9 @@ import lombok.AllArgsConstructor;
 import mi.mi.miklash.slidingpuzzle.controller.GameController;
 import mi.mi.miklash.slidingpuzzle.model.Node;
 
-
 @AllArgsConstructor
 public class MouseEnteredListener implements EventHandler<MouseEvent> {
+
 
     private final GameController gameController;
     private final Node node;

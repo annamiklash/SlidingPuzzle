@@ -8,7 +8,7 @@ import mi.mi.miklash.slidingpuzzle.model.Node;
 
 
 @AllArgsConstructor
-public class MousePressedListener implements EventHandler<MouseEvent>  {
+public class MousePressedListener implements EventHandler<MouseEvent> {
 
     private final GameController gameController;
     private final Node node;

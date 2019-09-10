@@ -8,6 +8,7 @@ import mi.mi.miklash.slidingpuzzle.view.GameBoard;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static mi.mi.miklash.slidingpuzzle.model.SelectionEnum.*;
 
@@ -26,27 +27,41 @@ public class GameController {
 
     public void handleSelection(Node selectedNode) {
 
-        final SelectionEnum selectionType = processSelectedNodes(selectedNode);
+        final SelectionEnum selectionType = getSelectionType(selectedNode);
+
+        selectedNode.setSelected();
 
         if (selectionType.equals(SELECTED_SAME_NODE)) {
             return;
         }
 
         if (selectionType.equals(ONE_NODE_SELECTED)) {
-
-            findPossibleNodeToSwitch(selectedNode);
+            Optional<Node> possibleNodeToSwitch = findPossibleNodeToSwitch(selectedNode);//if present - swap, if not - unselect
+            if (possibleNodeToSwitch.isPresent()) {
+                swapNodes(selectedNode, possibleNodeToSwitch.get());
+            }
+            unselectNodes();
         }
 
         if (selectionType.equals(TWO_NODES_SELECTED)) {
             unselectNodes();
         }
+        /*
+        add if the game is over
+         */
 
-        selectedNode.setSelected();
+    }
+
+    private void swapNodes(Node selectedNode, Node firstSelected) {
+
+        selectedNode.swapNodes(firstSelected);
+
     }
 
     private void initGame() {
-        nodeList = NodeGenerator.generateShuffledNodeList(this);
+        nodeList = NodeGenerator.generateNodeList(this);
         gameBoard.initializeNodesLocation(nodeList);
+
     }
 
     private void unselectNodes() {
@@ -58,43 +73,36 @@ public class GameController {
         }
     }
 
-    private void findPossibleNodeToSwitch(Node actualNode) {
-        Map<Integer, List<Node>> positionMap = PositionMapInitializer.init4x4PositionMap(nodeList);
-
-
+    // Todo: Return firstNodeSelected Optional<Node>
+    private Optional<Node> findPossibleNodeToSwitch(Node actualNode) {
         int actualNodeNumber = actualNode.getNodeNumber();
 
         for (Node firstNodeSelected : nodeList) {
             if (firstNodeSelected.isSelected()) { //ищет какой был кликнут первым
-                int firstSelectedNodeNumber = firstNodeSelected.getNodeNumber();
-                if (actualNodeNumber != firstSelectedNodeNumber) {
-                    /*
+                            /*
                    check actualNodeNumber as a key
                    and should check firstNodeSelected
                      */
-                    List<Node> possibleNodesToSwitch = PositionMapInitializer.getPossibleNodesToSwitch(positionMap, firstNodeSelected);
+                Map<Integer, List<Node>> positionMap = PositionMapInitializer.init4x4PositionMap(nodeList);
+                List<Node> possibleNodesToSwitch = PositionMapInitializer.getPossibleNodesToSwitch(positionMap, firstNodeSelected);
 
-                    for (Node possibleNodeToSwitchFromList : possibleNodesToSwitch) {
-                        if ((possibleNodeToSwitchFromList.getNodeNumber()) == actualNodeNumber){
+                for (Node possibleNodeToSwitchFromList : possibleNodesToSwitch) {
+                    if ((possibleNodeToSwitchFromList.getNodeNumber()) == actualNodeNumber) {
 
-                            firstNodeSelected.swapNodes(actualNode);
+                        return Optional.of(firstNodeSelected);
 
-
-                            break;
-
-                        }
                     }
-
-
                 }
             }
         }
+
+        return Optional.empty();
+
+
     }
 
 
-
-
-    private SelectionEnum processSelectedNodes(Node selectedNode) {
+    private SelectionEnum getSelectionType(Node selectedNode) {
 
         int selectedNodesCounter = 0;
         for (Node node : nodeList) {

@@ -55,7 +55,7 @@ public class ImageUtil {
 
     private static void saveSubImage(BufferedImage originalImage, int imageNumber, Point actualPoint, int pieceWidth, int pieceHeight) throws IOException {
         final BufferedImage subImage = originalImage.getSubimage((int) actualPoint.getX(), (int) actualPoint.getY(), pieceWidth, pieceHeight);
-        final File outputFile = new File("cutImages/" + imageNumber + ".jpg");
+        final File outputFile = new File("spaceCutImages/" + imageNumber + ".jpg");
 
         ImageIO.write(subImage, "jpg", outputFile);
     }
@@ -100,6 +100,6 @@ public class ImageUtil {
 
 
     private static Image readImage(int imageNumber) {
-        return new Image("cutImages/" + imageNumber + ".jpg");
+        return new Image("spaceCutImages/" + imageNumber + ".jpg");
     }
 }

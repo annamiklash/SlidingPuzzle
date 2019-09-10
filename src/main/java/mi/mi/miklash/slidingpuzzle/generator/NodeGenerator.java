@@ -18,16 +18,15 @@ import static mi.mi.miklash.slidingpuzzle.common.Constants.COLUMN_NUMBER;
 
 public class NodeGenerator {
 
-    public static List<Node> generateShuffledNodeList( GameController gameController) {
+    public static List<Node> generateNodeList(GameController gameController) {
         final List<Image> customImageList = ImageUtil.readImageList(COLUMN_NUMBER);
+        Collections.shuffle(customImageList);
 
         final List<Node> nodeList = new ArrayList<>();
         for (int i = 0; i < customImageList.size(); i++) {
             nodeList.add(createNode(customImageList, i, gameController));
             System.out.println("Adding node " + i);
         }
-
-        Collections.shuffle(customImageList);
 
         return nodeList;
     }
@@ -42,7 +41,6 @@ public class NodeGenerator {
         node.setOnMousePressed(mousePressedListener);
         node.setOnMouseEntered(mouseEnteredListener);
         node.setOnMouseExited(mouseExitedListener);
-
 
         return node;
     }
