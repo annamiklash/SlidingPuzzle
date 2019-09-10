@@ -20,14 +20,12 @@ public class GameBoard {
 
     public GameBoard() {
         this.gridPane = new GridPane();
-        this.gameController = new GameController();
+        this.gameController = new GameController(this);
         this.nodeList = NodeGenerator.generateShuffledNodeList(gameController);
-        initGridPane();
-        initializeNodesLocation();
     }
 
 
-    private void initGridPane() {
+    public void initGridPane() {
         gridPane.setPrefSize(800, 800);
         gridPane.setAlignment(Pos.CENTER);
 
@@ -37,7 +35,7 @@ public class GameBoard {
 
     }
 
-    private void initializeNodesLocation() {
+    public void initializeNodesLocation() {
         GridGenerator.generateGrid(gridPane, nodeList,  4);
     }
 

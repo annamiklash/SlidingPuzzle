@@ -4,6 +4,7 @@ import mi.mi.miklash.slidingpuzzle.generator.NodeGenerator;
 import mi.mi.miklash.slidingpuzzle.initializer.PositionMapInitializer;
 import mi.mi.miklash.slidingpuzzle.model.Node;
 import mi.mi.miklash.slidingpuzzle.model.SelectionEnum;
+import mi.mi.miklash.slidingpuzzle.view.GameBoard;
 
 import java.util.List;
 import java.util.Map;
@@ -13,13 +14,22 @@ import static mi.mi.miklash.slidingpuzzle.model.SelectionEnum.*;
 
 public class GameController {
 
+    private final GameBoard gameBoard;
+    private final MovesCounterController movesCounterController;
     private List<Node> nodeList;
-    MovesCounterController movesCounterController;
 
-    public GameController() {
+    public GameController(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
         this.movesCounterController = new MovesCounterController();
-        nodeList = NodeGenerator.generateShuffledNodeList(this);
 
+        initGame();
+
+    }
+
+    private void initGame() {
+        nodeList = NodeGenerator.generateShuffledNodeList(this);
+        gameBoard.initGridPane();
+        gameBoard.initializeNodesLocation();
     }
 
 

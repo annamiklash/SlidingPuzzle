@@ -2,7 +2,9 @@ package mi.mi.miklash.slidingpuzzle.controller;
 
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import lombok.Getter;
 
+@Getter
 public class MovesCounterController {
 
     private Text movesCounterTextBox;
@@ -24,11 +26,5 @@ public class MovesCounterController {
         movesCounterTextBox.setText("Moves counter: " + movesCounter);
     }
 
-    public Text getMovesCounterTextBox() {
-        return movesCounterTextBox;
-    }
 
-    public int getMovesCounter() {
-        return movesCounter;
-    }
 }
