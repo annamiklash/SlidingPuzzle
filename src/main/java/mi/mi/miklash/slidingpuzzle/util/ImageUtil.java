@@ -1,7 +1,7 @@
 package mi.mi.miklash.slidingpuzzle.util;
 
 
-import javafx.scene.image.Image;
+import mi.mi.miklash.slidingpuzzle.model.IndexedImage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,6 +16,8 @@ import static mi.mi.miklash.slidingpuzzle.common.Constants.COLUMN_NUMBER;
 import static mi.mi.miklash.slidingpuzzle.common.Constants.SPACE_PIC_PATH;
 
 public class ImageUtil {
+
+
 
 
     /**
@@ -41,11 +43,11 @@ public class ImageUtil {
         }
     }
 
-    public static List<Image> readImageList(int columnNumber) {
-        final List<Image> imageList = new ArrayList<>();
+    public static List<IndexedImage> readImageList(int columnNumber) {
+        final List<IndexedImage> imageList = new ArrayList<>();
 
-        for (int i = 0; i < COLUMN_NUMBER * COLUMN_NUMBER; i++) {
-            System.out.println("Checking for image " + i);
+        for (int i = 0; i < columnNumber * columnNumber; i++) {
+          //  System.out.println("Checking for image " + i);
             imageList.add(readImage(i));
         }
 
@@ -59,6 +61,7 @@ public class ImageUtil {
 
         ImageIO.write(subImage, "jpg", outputFile);
     }
+
 
     private static int getPieceHeight(BufferedImage originalImage, int imageNumberInRow) {
         final int originalImageHeight = originalImage.getHeight();
@@ -99,7 +102,7 @@ public class ImageUtil {
     }
 
 
-    private static Image readImage(int imageNumber) {
-        return new Image("spaceCutImages/" + imageNumber + ".jpg");
+    private static IndexedImage readImage(int imageNumber) {
+        return new IndexedImage("spaceCutImages/" + imageNumber + ".jpg", imageNumber);
     }
 }

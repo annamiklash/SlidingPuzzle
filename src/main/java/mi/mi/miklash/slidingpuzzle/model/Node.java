@@ -1,6 +1,5 @@
 package mi.mi.miklash.slidingpuzzle.model;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ public class Node extends ImageView {
     private int nodeNumber;
     private boolean isSelected;
 
-    public Node(Image image, int nodeNumber) {
+    public Node(IndexedImage image, int nodeNumber) {
         super(image);
         this.nodeNumber = nodeNumber;
 
@@ -41,7 +40,7 @@ public class Node extends ImageView {
 
     public void swapNodes(Node secondSelected) {
 
-        Image temp = this.getImage();
+        IndexedImage temp = (IndexedImage) this.getImage();
         this.setImage(secondSelected.getImage());
         secondSelected.setImage(temp);
 
@@ -53,7 +52,6 @@ public class Node extends ImageView {
 
 
     }
-
 
 
 }

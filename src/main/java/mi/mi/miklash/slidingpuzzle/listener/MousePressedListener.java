@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import mi.mi.miklash.slidingpuzzle.controller.GameController;
 import mi.mi.miklash.slidingpuzzle.model.Node;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+
 
 @AllArgsConstructor
 public class MousePressedListener implements EventHandler<MouseEvent> {
@@ -16,7 +19,12 @@ public class MousePressedListener implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent event) {
         System.out.println("node " + node.getNodeNumber() + " is selected");
-        gameController.handleSelection(node);
+        try {
+            gameController.handleSelection(node);
+
+        } catch (FileNotFoundException | MalformedURLException e) {
+            e.printStackTrace();
+        }
 
     }
 

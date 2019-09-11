@@ -2,10 +2,13 @@ package mi.mi.miklash.slidingpuzzle.controller;
 
 import mi.mi.miklash.slidingpuzzle.generator.NodeGenerator;
 import mi.mi.miklash.slidingpuzzle.initializer.PositionMapInitializer;
+import mi.mi.miklash.slidingpuzzle.model.IndexedImage;
 import mi.mi.miklash.slidingpuzzle.model.Node;
 import mi.mi.miklash.slidingpuzzle.model.SelectionEnum;
 import mi.mi.miklash.slidingpuzzle.view.GameBoard;
 
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,9 +28,11 @@ public class GameController {
 
     }
 
-    public void handleSelection(Node selectedNode) {
+    public void handleSelection(Node selectedNode) throws MalformedURLException, FileNotFoundException {
 
         final SelectionEnum selectionType = getSelectionType(selectedNode);
+
+        System.out.println(selectionType);
 
         selectedNode.setSelected();
 
@@ -46,14 +51,36 @@ public class GameController {
         if (selectionType.equals(TWO_NODES_SELECTED)) {
             unselectNodes();
         }
+
+        if (isGameOver()) {
+            gameOver();
+
+        }
         /*
         add if the game is over
          */
 
     }
 
-    private void swapNodes(Node selectedNode, Node firstSelected) {
+    private boolean isGameOver() {
+        System.out.println("check if game over");
 
+        for (Node node : nodeList) {
+            final IndexedImage image = (IndexedImage) node.getImage();
+            if (node.getNodeNumber() != image.getIndex()) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    private void gameOver() {
+        System.out.println("GAME OVER");
+    }
+
+
+    private void swapNodes(Node selectedNode, Node firstSelected) {
         selectedNode.swapNodes(firstSelected);
 
     }
@@ -73,7 +100,6 @@ public class GameController {
         }
     }
 
-    // Todo: Return firstNodeSelected Optional<Node>
     private Optional<Node> findPossibleNodeToSwitch(Node actualNode) {
         int actualNodeNumber = actualNode.getNodeNumber();
 
@@ -83,7 +109,7 @@ public class GameController {
                    check actualNodeNumber as a key
                    and should check firstNodeSelected
                      */
-                Map<Integer, List<Node>> positionMap = PositionMapInitializer.init4x4PositionMap(nodeList);
+                Map<Integer, List<Node>> positionMap = PositionMapInitializer.initPositionMap(nodeList);
                 List<Node> possibleNodesToSwitch = PositionMapInitializer.getPossibleNodesToSwitch(positionMap, firstNodeSelected);
 
                 for (Node possibleNodeToSwitchFromList : possibleNodesToSwitch) {

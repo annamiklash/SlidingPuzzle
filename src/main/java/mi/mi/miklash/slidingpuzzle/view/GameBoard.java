@@ -10,6 +10,8 @@ import mi.mi.miklash.slidingpuzzle.model.Node;
 
 import java.util.List;
 
+import static mi.mi.miklash.slidingpuzzle.common.Constants.COLUMN_NUMBER;
+
 @Getter
 public class GameBoard {
 
@@ -38,7 +40,7 @@ public class GameBoard {
     }
 
     public void initializeNodesLocation(List<Node> nodeList) {
-        GridGenerator.generateGrid(gridPane, nodeList,  4);
+        GridGenerator.generateGrid(gridPane, nodeList,  COLUMN_NUMBER);
     }
 
 //    public void initializeMovesCounterLocation (Text movesCounter) {

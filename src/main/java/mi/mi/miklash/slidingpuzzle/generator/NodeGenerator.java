@@ -1,11 +1,11 @@
 package mi.mi.miklash.slidingpuzzle.generator;
 
 
-import javafx.scene.image.Image;
 import mi.mi.miklash.slidingpuzzle.controller.GameController;
 import mi.mi.miklash.slidingpuzzle.listener.MouseEnteredListener;
 import mi.mi.miklash.slidingpuzzle.listener.MouseExitedListener;
 import mi.mi.miklash.slidingpuzzle.listener.MousePressedListener;
+import mi.mi.miklash.slidingpuzzle.model.IndexedImage;
 import mi.mi.miklash.slidingpuzzle.model.Node;
 import mi.mi.miklash.slidingpuzzle.util.ImageUtil;
 
@@ -19,7 +19,8 @@ import static mi.mi.miklash.slidingpuzzle.common.Constants.COLUMN_NUMBER;
 public class NodeGenerator {
 
     public static List<Node> generateNodeList(GameController gameController) {
-        final List<Image> customImageList = ImageUtil.readImageList(COLUMN_NUMBER);
+        //TODO: cut imag
+        final List<IndexedImage> customImageList = ImageUtil.readImageList(COLUMN_NUMBER);
         Collections.shuffle(customImageList);
 
         final List<Node> nodeList = new ArrayList<>();
@@ -31,7 +32,7 @@ public class NodeGenerator {
         return nodeList;
     }
 
-    private static Node createNode(List<Image> customImageList, int nodeNumber, GameController gameController) {
+    private static Node createNode(List<IndexedImage> customImageList, int nodeNumber, GameController gameController) {
         final Node node = new Node(customImageList.get(nodeNumber), nodeNumber);
 
         final MousePressedListener mousePressedListener = new MousePressedListener(gameController, node);

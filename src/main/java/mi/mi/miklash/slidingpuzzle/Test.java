@@ -1,29 +1,73 @@
 package mi.mi.miklash.slidingpuzzle;
 
-import mi.mi.miklash.slidingpuzzle.util.ImageUtil;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.Optional;
+import static mi.mi.miklash.slidingpuzzle.common.Constants.COLUMN_NUMBER;
 
 public class Test {
 
     public static void main(String[] args) {
-
-        ImageUtil.cutImage(4);
-
-        Optional<String> optionalString = getValue();
-
-        if (optionalString.isPresent()) {
-            System.out.println("optionalString contains: " + optionalString.get());
-        } else {
-            System.out.println("Optional is empty");
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < COLUMN_NUMBER * COLUMN_NUMBER; i++) {
+            if (i == 0) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i + 1);
+                value.add(i + COLUMN_NUMBER);
+                map.put(i, value);
+            } else if (i == COLUMN_NUMBER - 1) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - 1);
+                value.add(i + COLUMN_NUMBER);
+                map.put(i, value);
+            } else if (i == COLUMN_NUMBER * COLUMN_NUMBER - COLUMN_NUMBER) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - COLUMN_NUMBER);
+                value.add(i + 1);
+                map.put(i, value);
+            } else if (i == COLUMN_NUMBER * COLUMN_NUMBER - 1) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - COLUMN_NUMBER);
+                value.add(i - 1);
+                map.put(i, value);
+            } else if (i < COLUMN_NUMBER) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - 1);
+                value.add(i + 1);
+                value.add(i + COLUMN_NUMBER);
+                map.put(i, value);
+            } else if (i % COLUMN_NUMBER == 0) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - COLUMN_NUMBER);
+                value.add(i + 1);
+                value.add(i + COLUMN_NUMBER);
+                map.put(i, value);
+            } else if (i % COLUMN_NUMBER == COLUMN_NUMBER - 1) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - COLUMN_NUMBER);
+                value.add(i - 1);
+                value.add(i + COLUMN_NUMBER);
+                map.put(i, value);
+            } else if (i > COLUMN_NUMBER * (COLUMN_NUMBER -1)) {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - COLUMN_NUMBER);
+                value.add(i - 1);
+                value.add(i + 1);
+                map.put(i, value);
+            } else {
+                List<Integer> value = new ArrayList<>();
+                value.add(i - COLUMN_NUMBER);
+                value.add(i - 1);
+                value.add(i + 1);
+                value.add(i + COLUMN_NUMBER);
+                map.put(i, value);
+            }
         }
 
+        System.out.println(map.toString());
 
     }
 
-    private static Optional<String> getValue() {
-
-        return Optional.empty();
-//        return Optional.of("Ania");
-    }
 }
